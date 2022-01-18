@@ -1,5 +1,3 @@
-from optparse import Option
-from unittest.util import _MAX_LENGTH
 from django.db import models
 
 # Create your models here.
@@ -15,7 +13,10 @@ class Student(models.Model):
     email = models.EmailField(max_length=100)
     gender = models.CharField(choices = GENDERS , max_length=1)
     percentage = models.FloatField()
-    Institute = models.ForeignKey('Institute' , on_delete= models.CASCADE)
+    institute = models.ForeignKey('Institute' , on_delete= models.CASCADE ,null=True , blank=True)
+
+    def __str__(self) -> str:
+        return self.name 
 
 class Institute(models.Model):
     TYPE = (
@@ -24,4 +25,6 @@ class Institute(models.Model):
         ('c' , 'COLLEGE')
     )
     name = models.CharField(max_length=250)
-    type_of_Inst = models.CharField(choices= TYPE)
+    type_of_Inst = models.CharField(choices= TYPE , max_length=1)
+    def __str__(self) -> str:
+        return self.name 
